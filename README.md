@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# atividade---FRONTEND---dnc-hotel---Escola-DNC
 
-## Getting Started
+## Ambiente de Desenvolvimento
 
-First, run the development server:
+- **node** v22.11.0
+- **npm** v10.9.0
+- **next** v15.0.3
+
+### Instalação
+
+- Criação do projeto
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ npx create-next-app@latest --ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Instalando dependedncias do Mantine
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+ npm install @mantine/core @mantine/hooks
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Configurando PostCSS Setup
 
-## Learn More
+```bash
+ npm install --save-dev postcss postcss-preset-mantine postcss-simple-vars
+```
 
-To learn more about Next.js, take a look at the following resources:
+- É preciso criar um arquivo 'postcss.config.cjs' na rais do projeto e colar o conteudo abaixo:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```cjs
+module.exports = {
+  plugins: {
+    "postcss-preset-mantine": {},
+    "postcss-simple-vars": {
+      variables: {
+        "mantine-breakpoint-xs": "36em",
+        "mantine-breakpoint-sm": "48em",
+        "mantine-breakpoint-md": "62em",
+        "mantine-breakpoint-lg": "75em",
+        "mantine-breakpoint-xl": "88em",
+      },
+    },
+  },
+};
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- É preciso alterar o conteúdo do arquivo next.config.ts para:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```ts
+export default {
+  experimental: {
+    optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
+  },
+};
+```
