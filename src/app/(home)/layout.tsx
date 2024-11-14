@@ -1,15 +1,16 @@
 import Footer from "@/components/footer/footer";
-import { Center, Flex, Image, Text } from "@mantine/core";
+import Header from "@/components/header/header";
 
-export default function HomeLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-
+export default function HomeLayout({
+  children
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
     <>
-      <Center>
-        <Image src='/logo.png' h={60} />
-      </Center>
+      <Header />
       {children}
       <Footer />
     </>
-  )
+  );
 }

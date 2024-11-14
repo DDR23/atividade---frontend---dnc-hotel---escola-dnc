@@ -1,9 +1,9 @@
-import '@mantine/core/styles.css';
-import '@mantine/carousel/styles.css';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import "@mantine/core/styles.css";
+import "@mantine/carousel/styles.css";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import type { Metadata } from "next";
-import '../styles/globals.css'
-import { theme } from '@/styles/theme';
+import "../styles/globals.css"
+import { theme } from "@/styles/theme";
 
 export const metadata: Metadata = {
   title: "DNC - hotel",
@@ -18,10 +18,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
-        <ColorSchemeScript defaultColorScheme='auto' />
+        <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme='auto'>
+        <MantineProvider theme={theme} defaultColorScheme="auto">
           {children}
         </MantineProvider>
       </body>
