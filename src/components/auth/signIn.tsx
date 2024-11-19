@@ -1,32 +1,47 @@
-import { schemaSignin } from "@/schemas/auth/schemaSignIn";
+import usePost from "@/hooks/usePost";
+import { schemaAuth } from "@/schemas/auth/schemaAuth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Group, PasswordInput, TextInput } from "@mantine/core";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import NotificationShow from "../_ui/notification/notificationShow";
 
-interface SigninPostValues {
-  USER_NAME?: string
-  USER_PASSWORD?: string
+interface UsePostReq {
+  USER_EMAIL: string;
+  USER_PASSWORD: string;
+}
+
+interface UsePostRes {
+  access_token: string;
 }
 
 export default function SignIn() {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(schemaSignin)
+    resolver: yupResolver(schemaAuth),
   });
 
-  const [posted, setPosted] = useState(false);
-  const [data, setData] = useState<SigninPostValues>({ USER_NAME: '', USER_PASSWORD: '' });
+  const watchData = watch();
+  const { isPosting, response, error, sendRequest } = usePost<UsePostReq, UsePostRes>(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, watchData);
 
-  const submitForm: SubmitHandler<SigninPostValues> = (formData) => {
-    setData(formData)
-    setPosted(true)
-    console.log('data', data)
-    console.log('posted', posted)
-  };
+  useEffect(() => {
+    if (error) {
+      NotificationShow({
+        title: 'Erro',
+        message: 'Ocorreu um erro ao tentar fazer o login.',
+      });
+    }
+
+    if (response) {
+      NotificationShow({
+        title: 'Sucesso',
+        message: 'Usuário logado com sucesso!',
+      });
+    }
+  }, [error, response]);
 
   return (
-    <form onSubmit={handleSubmit(submitForm)}>
+    <form onSubmit={handleSubmit(sendRequest)}>
       <TextInput
         {...register('USER_EMAIL')}
         label="Email"
@@ -37,7 +52,9 @@ export default function SignIn() {
         label="Senha"
       />
       <Group justify="flex-end" mt="md">
-        <Button fullWidth type="submit">Entrar</Button>
+        <Button fullWidth type="submit" disabled={isPosting} loading={isPosting}>
+          Entrar
+        </Button>
       </Group>
     </form>
   );

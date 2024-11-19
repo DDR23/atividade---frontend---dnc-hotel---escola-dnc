@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const schemaSignup = yup.object().shape({
+export const schemaAuth = yup.object().shape({
   USER_EMAIL: yup
     .string()
     .required('Obrigatório'),

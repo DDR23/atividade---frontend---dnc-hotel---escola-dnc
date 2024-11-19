@@ -64,7 +64,7 @@ export default function Home() {
               ...styles,
               position: 'absolute'
             }}>
-              <SignUp />
+              {/* <SignUp /> */}
               <Text c="dimmed" size="sm" ta="center" mt={20}>
                 Já tem uma conta?{' '}
                 <Anchor size="sm" component="button" onClick={() => setPaperContent('signIn')}>
