@@ -13,6 +13,7 @@ export default function NotificationShow({ title, message }: Props) {
   notifications.show({
     title: title,
     message: message,
+    bg: 'background',
     position: 'top-right',
     autoClose: 3000,
     color: notificationColor,
