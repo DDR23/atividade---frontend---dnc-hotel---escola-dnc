@@ -29,7 +29,8 @@ export default function SignIn() {
     <form onSubmit={handleSubmit(submitForm)}>
       <TextInput
         {...register('USER_EMAIL')}
-        label="Username"
+        label="Email"
+        type="email"
       />
       <PasswordInput
         {...register('USER_PASSWORD')}
