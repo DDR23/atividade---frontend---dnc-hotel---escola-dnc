@@ -3,6 +3,7 @@ import { Carousel } from '@mantine/carousel';
 import { Anchor, BackgroundImage, Center, Paper, Text, Transition } from '@mantine/core';
 import { useRef, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
+import SignIn from '@/components/auth/signIn';
 
 const backgrounds = [
   { src: './picture_01.png' },
@@ -46,7 +47,7 @@ export default function Home() {
               ...styles,
               position: 'absolute'
             }}>
-              <>login</>
+              <SignIn />
               <Text c="dimmed" size="sm" ta="center" mt={20}>
                 Ainda nao tem uma conta?{' '}
                 <Anchor size="sm" component="button" onClick={() => setPaperContent('signUp')}>
