@@ -4,6 +4,7 @@ import { Anchor, BackgroundImage, Center, Paper, Text, Transition } from '@manti
 import { useRef, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import SignIn from '@/components/auth/signIn';
+import SignUp from '@/components/auth/signUp';
 
 const backgrounds = [
   { src: './picture_01.png' },
@@ -63,7 +64,7 @@ export default function Home() {
               ...styles,
               position: 'absolute'
             }}>
-              <>cadastro</>
+              <SignUp />
               <Text c="dimmed" size="sm" ta="center" mt={20}>
                 Já tem uma conta?{' '}
                 <Anchor size="sm" component="button" onClick={() => setPaperContent('signIn')}>
