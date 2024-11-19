@@ -17,10 +17,10 @@ function PasswordRequirement({ meets, label }: { meets: boolean; label: string }
 }
 
 export const requirements = [
-  { re: /[0-9]/, label: 'Conter número' },
-  { re: /[a-z]/, label: 'Conter letra minúscula' },
-  { re: /[A-Z]/, label: 'Conter letra maiúscula' },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Conter caractere especial' },
+  { re: /[0-9]/, label: 'conter número' },
+  { re: /[a-z]/, label: 'conter letra minúscula' },
+  { re: /[A-Z]/, label: 'conter letra maiúscula' },
+  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'conter caractere especial' },
 ];
 
 function getStrength(password: string) {

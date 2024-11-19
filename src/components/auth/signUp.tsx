@@ -2,6 +2,8 @@ import { schemaSignup } from "@/schemas/auth/schemaSingUp";
 import PasswordStrength, { requirements } from "@/utils/passwordStrength";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Group, PasswordInput, TextInput } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -34,25 +36,27 @@ export default function SignUp() {
 
   const submitForm: SubmitHandler<SignupPostValues> = (formData) => {
     const passwordErrors = validatePassword(formData.USER_PASSWORD || '');
-    // if (passwordErrors.length > 0) {
-    //   notifications.show({
-    //     title: 'Senha Invalida',
-    //     message: `${passwordErrors.join(', ')}`,
-    //     autoClose: 8000,
-    //     color: 'red',
-    //     icon: <IconX />
-    //   });
-    //   return;
-    // }
+    if (passwordErrors.length > 0) {
+      notifications.show({
+        title: 'Senha Invalida',
+        message: `Precisa ${passwordErrors.join(', ')}`,
+        autoClose: 8000,
+        color: 'red',
+        icon: <IconX />
+      });
+      return;
+    }
     setData(formData);
     setPosted(true);
   };
+  console.log('data', data)
+  console.log('posted', posted)
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <TextInput
         {...register('USER_EMAIL')}
-        label="Username"
+        label="Email"
         error={errors.USER_EMAIL?.message}
       />
       <PasswordInput
