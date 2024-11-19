@@ -1,7 +1,7 @@
 'use client';
 import { Carousel } from '@mantine/carousel';
-import { BackgroundImage, Card, Center } from '@mantine/core';
-import { useRef } from 'react';
+import { Anchor, BackgroundImage, Center, Paper, Text, Transition } from '@mantine/core';
+import { useRef, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 
 const backgrounds = [
@@ -12,6 +12,7 @@ const backgrounds = [
 
 export default function Home() {
   const autoplay = useRef(Autoplay({ delay: 4000 }));
+  const [paperContent, setPaperContent] = useState<'signIn' | 'signUp'>('signIn');
 
   const slides = backgrounds.map((row, index) => (
     <Carousel.Slide key={index}>
@@ -39,9 +40,38 @@ export default function Home() {
         zIndex: 10,
         top: 0,
       }}>
-        <Card w='20rem' h='20rem' bg='background'>
-          teste
-        </Card>
+        <Transition mounted={paperContent === 'signIn'} transition="slide-right" duration={250} timingFunction="ease">
+          {(styles) => (
+            <Paper w='25rem' maw='90vw' shadow='lg' radius='md' p='lg' bg='background' style={{
+              ...styles,
+              position: 'absolute'
+            }}>
+              <>login</>
+              <Text c="dimmed" size="sm" ta="center" mt={20}>
+                Ainda nao tem uma conta?{' '}
+                <Anchor size="sm" component="button" onClick={() => setPaperContent('signUp')}>
+                  Criar conta
+                </Anchor>
+              </Text>
+            </Paper>
+          )}
+        </Transition>
+        <Transition mounted={paperContent === 'signUp'} transition="slide-left" duration={250} timingFunction="ease">
+          {(styles) => (
+            <Paper w='25rem' maw='90vw' shadow='lg' radius='md' p='lg' bg='background' style={{
+              ...styles,
+              position: 'absolute'
+            }}>
+              <>cadastro</>
+              <Text c="dimmed" size="sm" ta="center" mt={20}>
+                Já tem uma conta?{' '}
+                <Anchor size="sm" component="button" onClick={() => setPaperContent('signIn')}>
+                  Entrar
+                </Anchor>
+              </Text>
+            </Paper>
+          )}
+        </Transition>
       </Center>
     </>
   );
