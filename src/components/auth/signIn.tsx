@@ -52,7 +52,12 @@ export default function SignIn() {
         label="Senha"
       />
       <Group justify="flex-end" mt="md">
-        <Button fullWidth type="submit" disabled={isPosting} loading={isPosting}>
+        <Button
+          fullWidth
+          type="submit"
+          disabled={isPosting}
+          loading={isPosting}
+        >
           Entrar
         </Button>
       </Group>

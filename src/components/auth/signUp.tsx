@@ -17,7 +17,7 @@ interface UsePostRes {
 }
 
 export default function SignUp() {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schemaAuth),
   });
@@ -49,7 +49,6 @@ export default function SignUp() {
       <TextInput
         {...register('USER_EMAIL')}
         label="Email"
-        error={errors.USER_EMAIL?.message}
       />
       <PasswordInput
         {...register('USER_PASSWORD')}
