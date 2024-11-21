@@ -6,7 +6,7 @@ interface Props {
   message: string;
 }
 
-export default function NotificationShow({ title, message }: Props) {
+export default function ProviderNotification({ title, message }: Props) {
   const notificationColor = title === 'Sucesso' ? 'green' : 'red';
   const notificationIcon = title === 'Sucesso' ? <IconCheck /> : <IconX />;
 

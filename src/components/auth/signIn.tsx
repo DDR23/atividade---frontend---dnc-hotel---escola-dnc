@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Group, PasswordInput, TextInput } from "@mantine/core";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import NotificationShow from "../_ui/notification/notificationShow";
+import ProviderNotification from "../_ui/notification/providerNotification";
 
 interface UsePostReq {
   USER_EMAIL: string;
@@ -26,14 +26,14 @@ export default function SignIn() {
 
   useEffect(() => {
     if (error) {
-      NotificationShow({
+      ProviderNotification({
         title: 'Erro',
         message: 'Ocorreu um erro ao tentar fazer o login.',
       });
     }
 
     if (response) {
-      NotificationShow({
+      ProviderNotification({
         title: 'Sucesso',
         message: 'Usuário logado com sucesso!',
       });
