@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import '../styles/globals.css'
 import { theme } from '@/styles/theme';
 import { Notifications } from '@mantine/notifications';
+import AuthProvider from '@/providers/authProvider';
 
 export const metadata: Metadata = {
   title: 'DNC - hotel',
@@ -25,7 +26,9 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme} defaultColorScheme='auto'>
           <Notifications />
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </MantineProvider>
       </body>
     </html>
