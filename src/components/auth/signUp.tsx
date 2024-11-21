@@ -1,11 +1,12 @@
+import ProviderNotification from "@/components/_ui/notification/providerNotification";
 import usePost from "@/hooks/usePost";
 import { schemaAuth } from "@/schemas/auth/schemaAuth";
-import PasswordStrength, { getStrength } from "@/utils/passwordStrength";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Group, PasswordInput, TextInput } from "@mantine/core";
+import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import ProviderNotification from "../_ui/notification/providerNotification";
 
 interface UsePostReq {
   USER_EMAIL: string;
@@ -23,45 +24,44 @@ export default function SignUp() {
   });
 
   const watchData = watch();
-  const passwordStrength = getStrength(watchData.USER_PASSWORD || "");
-  const isPasswordValid = passwordStrength === 100;
-
-  const { isPosting, response, error, sendRequest } = usePost<UsePostReq, UsePostRes>(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, watchData);
+  const { isPosting, response, error, sendRequest } = usePost<UsePostReq, UsePostRes>(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/register`, watchData);
 
   useEffect(() => {
     if (error) {
       ProviderNotification({
-        title: 'Erro',
-        message: 'Ocorreu um erro durante o cadastro.',
+        title: error.response?.status === 409 ? 'Erro' : 'Erro ao registrar',
+        message: error.response?.status === 409 ? 'Usuário já existe.' : 'Tente novamente mais tarde.',
       });
     }
-
     if (response) {
       ProviderNotification({
         title: 'Sucesso',
-        message: 'Usuário cadastrado com sucesso!',
+        message: 'Usuário registrado com sucesso!',
       });
+      signIn('credentials', {
+        USER_EMAIL: watchData.USER_EMAIL,
+        USER_PASSWORD: watchData.USER_PASSWORD,
+        redirect: false,
+      })
+        .then((res) => res?.ok && redirect('/produtos'));
     }
-  }, [error, response]);
+  }, [response, error, watchData]);
 
   return (
     <form onSubmit={handleSubmit(sendRequest)}>
       <TextInput
         {...register('USER_EMAIL')}
-        label="Email"
+        label="Username"
+        aria-label="Nome de usuário"
       />
       <PasswordInput
         {...register('USER_PASSWORD')}
         label="Senha"
+        aria-label="Senha"
+        minLength={6}
       />
-      <PasswordStrength value={watchData.USER_PASSWORD || ''} />
       <Group justify="flex-end" mt="md">
-        <Button
-          fullWidth
-          type="submit"
-          disabled={isPosting || !isPasswordValid}
-          loading={isPosting}
-        >
+        <Button fullWidth type="submit" disabled={isPosting} loading={isPosting}>
           Cadastrar
         </Button>
       </Group>
