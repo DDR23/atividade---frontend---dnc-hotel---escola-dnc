@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface UsePostReq {
+  USER_NAME?: string;
   USER_EMAIL: string;
   USER_PASSWORD: string;
 }
@@ -50,9 +51,15 @@ export default function SignUp() {
   return (
     <form onSubmit={handleSubmit(sendRequest)}>
       <TextInput
+        {...register('USER_NAME')}
+        label="Nome"
+        aria-label="Nome do usuário"
+      />
+      <TextInput
         {...register('USER_EMAIL')}
-        label="Username"
-        aria-label="Nome de usuário"
+        type="email"
+        label="Email"
+        aria-label="Email do usuário"
       />
       <PasswordInput
         {...register('USER_PASSWORD')}

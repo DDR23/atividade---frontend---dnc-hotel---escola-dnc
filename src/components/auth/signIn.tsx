@@ -29,6 +29,7 @@ export default function SignIn() {
       .then((res) => {
         setIsLoading(false);
         if (res?.error) {
+          console.log(res)
           ProviderNotification({
             title: res.status === 401 ? 'Erro de Login' : 'Erro',
             message: res.status === 401 ? 'Usuário ou senha incorretos.' : 'Ocorreu um erro ao tentar fazer o login. Tente novamente mais tarde.',
@@ -48,15 +49,13 @@ export default function SignIn() {
     <form onSubmit={handleSubmit(submitForm)}>
       <TextInput
         {...register('USER_EMAIL')}
-        label="Username"
-        aria-label="Nome de usuário"
-        autoComplete="username"
+        label="Email"
+        aria-label="Email do usuário"
       />
       <PasswordInput
         {...register('USER_PASSWORD')}
         label="Senha"
         aria-label="Senha"
-        autoComplete="current-password"
       />
       <Group justify="flex-end" mt="md">
         <Button fullWidth type="submit" disabled={isLoading} loading={isLoading}>
