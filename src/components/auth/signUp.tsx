@@ -25,7 +25,7 @@ export default function SignUp() {
   });
 
   const watchData = watch();
-  const { isPosting, response, error, sendRequest } = usePost<UsePostReq, UsePostRes>(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/register`, watchData);
+  const { isPosting, response, error, sendRequest } = usePost<UsePostReq, UsePostRes>(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, watchData);
 
   useEffect(() => {
     if (error) {
