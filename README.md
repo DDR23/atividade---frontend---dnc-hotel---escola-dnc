@@ -1,6 +1,6 @@
 # gerenciador-de-reservas-para-hoteis-frontend
 
-OBS: este projeto foi descontinuado/pausado por tempo indeterminado
+OBS: o backend desse projeto está finalizado, porem o desenvolvimento do frontend foi pausado por tempo indeterminado.
 
 ## Sobre o projeto
 Esse é um projeto divido em 2 partes, trata-se de um sistema de gerenciamento de reservas para hoteis.
