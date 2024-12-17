@@ -1,4 +1,4 @@
-# atividade---FRONTEND---dnc-hotel---Escola-DNC
+# gerenciador-de-reservas-para-hoteis-frontend
 
 ## Ambiente de Desenvolvimento
 
